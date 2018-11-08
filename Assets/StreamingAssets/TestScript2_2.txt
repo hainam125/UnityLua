@@ -1,24 +1,27 @@
+
+local helloBranch = function()
+	SetText "Third Slide"
+	State.SetFlag("FirstButton", true)
+	coroutine.yield()
+	SetText "Last inner coroutine Slide"
+end
+
 local main = function()
 	SetText ("Hi "..State.PlayerName..". I'am a Lua script")
 	ShowButtons("Hello", "Goodbye")
 
 	coroutine.yield()
 	if State.ButtonSelected == 1 then
+		SetText "Second Slide"
 		coroutine.yield(helloBranch)
 	else
 		SetText "Other Option"
+		coroutine.yield()
 	end
-	
-	coroutine.yield()
 
 	if State.GetFlag("FirstButton") then
 		SetText "Flag was set"
 	end
 end
-
-local helloBranch = function() {
-	SetText "Second Slide"
-	State.SetFlag("FirstButton", true)
-}
 
 return main

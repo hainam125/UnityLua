@@ -18,7 +18,6 @@ public class ButtonHandler : MonoBehaviour {
 	}
 
 	public void ButtonClicked(int index) {
-		Debug.Log("Button Clicked: " + index);
 		lua.LuaGameState.ButtonSelected = index + 1;
 		buttonParent.SetActive(false);
 		lua.AdvanceScript();

@@ -10,7 +10,7 @@ public class LuaEnvironment : MonoBehaviour {
 	private string loadFile;
 
 	private Script script;
-	private MoonSharp.Interpreter.Coroutine activeCoroutine;
+	private Stack<MoonSharp.Interpreter.Coroutine> corStack;
 	private GameState luaGameState;
 	public GameState LuaGameState { get { return luaGameState; } }
 
@@ -19,6 +19,8 @@ public class LuaEnvironment : MonoBehaviour {
 	}
 
 	private IEnumerator Start() {
+		corStack = new Stack<MoonSharp.Interpreter.Coroutine>();
+
 		Script.DefaultOptions.DebugPrint = s => Debug.Log(s.ToLower());
 		UserData.RegisterAssembly();
 
@@ -48,19 +50,19 @@ public class LuaEnvironment : MonoBehaviour {
 		}
 
 		if (ret.Type == DataType.Function) {
-			activeCoroutine = script.CreateCoroutine(ret).Coroutine;
-		}
-		else {
-			activeCoroutine = null;
+			corStack.Push(script.CreateCoroutine(ret).Coroutine);
 		}
 	}
 
 	public void AdvanceScript() {
-		if (activeCoroutine != null) {
-			activeCoroutine.Resume();
-			if (activeCoroutine.State == CoroutineState.Dead) {
-				activeCoroutine = null;
-				Debug.Log("Completed");
+		if (corStack.Count > 0) {
+			var cor = corStack.Peek();
+			var ret = cor.Resume();
+			if (cor.State == CoroutineState.Dead) {
+				corStack.Pop();
+			}
+			if (ret.Type == DataType.Function) {
+				corStack.Push(script.CreateCoroutine(ret).Coroutine);
 			}
 		}
 	}
