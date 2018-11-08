@@ -7,6 +7,7 @@ using MoonSharp.Interpreter;
 public class GameState {
 	private string playerName;
 	private int buttonSelected;
+	private string portrait;
 	public HashSet<string> flags;
 
 	[MoonSharpHidden]

@@ -27,6 +27,7 @@ public class LuaEnvironment : MonoBehaviour {
 		script = new Script(CoreModules.Preset_SoftSandbox);
 		script.Globals["SetText"] = (Action<string>)LuaCommand.SetText;
 		script.Globals["ShowButtons"] = (Action<string, string>)LuaCommand.ShowButtons;
+		script.Globals["SetPortrait"] = (Action<string>)LuaCommand.SetPortrait;
 		script.Globals["State"] = UserData.Create(luaGameState);
 
 		yield return 1;

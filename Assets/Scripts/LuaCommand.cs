@@ -9,10 +9,12 @@ public class LuaCommand : MonoBehaviour {
 	[SerializeField]
 	private Text uiText;
 	private ButtonHandler buttons;
+	private PortraitHandler portrait;
 
 	private void Awake() {
 		instance = this;
 		buttons = FindObjectOfType<ButtonHandler>();
+		portrait = FindObjectOfType<PortraitHandler>();
 	}
 
 	public static void SetText(string text) {
@@ -21,5 +23,9 @@ public class LuaCommand : MonoBehaviour {
 
 	public static void ShowButtons(string btn1Text, string btn2Text) {
 		instance.buttons.ShowButtons(btn1Text, btn2Text);
+	}
+
+	public static void SetPortrait(string portrait) {
+		instance.portrait.SetPortrait(portrait);
 	}
 }

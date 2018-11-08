@@ -7,6 +7,7 @@ local helloBranch = function()
 end
 
 local main = function()
+	SetPortrait "Talking"
 	SetText ("Hi "..State.PlayerName..". I'am a Lua script")
 	ShowButtons("Hello", "Goodbye")
 
@@ -15,11 +16,13 @@ local main = function()
 		SetText "Second Slide"
 		coroutine.yield(helloBranch)
 	else
+		SetPortrait "Surprised"
 		SetText "Other Option"
 		coroutine.yield()
 	end
 
 	if State.GetFlag("FirstButton") then
+		SetPortrait "Annoyed"
 		SetText "Flag was set"
 	end
 end
