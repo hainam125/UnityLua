@@ -1,0 +1,1 @@
+SetText "I 'am a Lua script"

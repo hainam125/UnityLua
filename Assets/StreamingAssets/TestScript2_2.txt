@@ -1,0 +1,24 @@
+local main = function()
+	SetText ("Hi "..State.PlayerName..". I'am a Lua script")
+	ShowButtons("Hello", "Goodbye")
+
+	coroutine.yield()
+	if State.ButtonSelected == 1 then
+		coroutine.yield(helloBranch)
+	else
+		SetText "Other Option"
+	end
+	
+	coroutine.yield()
+
+	if State.GetFlag("FirstButton") then
+		SetText "Flag was set"
+	end
+end
+
+local helloBranch = function() {
+	SetText "Second Slide"
+	State.SetFlag("FirstButton", true)
+}
+
+return main

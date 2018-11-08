@@ -1,0 +1,18 @@
+return function()
+	SetText ("Hi "..State.PlayerName..". I'am a Lua script")
+	ShowButtons("Hello", "Goodbye")
+
+	coroutine.yield()
+	if State.ButtonSelected == 1 then
+		SetText "Second Slide"
+		State.SetFlag("FirstButton", true)
+	else
+		SetText "Other Option"
+	end
+	
+	coroutine.yield()
+
+	if State.GetFlag("FirstButton") then
+		SetText "Flag was set"
+	end
+end
